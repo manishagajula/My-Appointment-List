@@ -53,20 +53,20 @@ export const PatientList = () => {
   return (
     <div className=" flex flex-col items-center justify-center min-h-screen">
       <div className="border rounded-3xl pb-10 ">
-        <h1 className="text-2xl text-gray-600 text-left pl-10 pb-4 pt-10">
+        <h1 className="text-2xl text-gray-600 text-left pl-10 pb-4 pt-10 font-semibold">
           {" "}
           Today's Appointment List
         </h1>
-        <div className="flex flex-col items-center justify-center ml-10 mr-10">
-          <table className=" table-auto pl-10">
+        <div className="flex flex-col items-center justify-center ml-10 mr-12">
+          <table className=" table-auto pl-10 w-full">
             {/* h-1/2 w-1/2 */}
             <thead>
-              <tr className="flex flex-row gap-32 p-4 border-slate-100 rounded-t-lg text-slate-500 bg-slate-50">
-                <th className="pr-20">PATIENTS</th>
-                <th className="pr-20">DATE</th>
-                <th className="pr-10">TIME</th>
-                <th className="pr-14">DOCTOR</th>
-                <th className="pr-10">INJURY</th>
+              <tr className="flex flex-row gap-8 p-4 border-slate-100 rounded-t-lg text-slate-500 bg-slate-50">
+                <th className="pr-44">PATIENTS</th>
+                <th className="pr-32">DATE</th>
+                <th className="pr-32">TIME</th>
+                <th className="pr-24"> DOCTOR</th>
+                <th className="pr-14">INJURY</th>
                 <th className="pr-10">ACTION</th>
               </tr>
             </thead>
@@ -82,60 +82,72 @@ export const PatientList = () => {
                     injury,
                   },
                   index
-                ) => (
-                  <tr
-                    key={index}
-                    className="flex flex-row gap-28 items-center justify-start text-left border-b "
-                  >
-                    {/* <tr className="flex flex-col"> */}
-                    <div className="flex flex-row items-center justify-center p-2">
-                      <div>
-                        <td>
-                          <img
-                            src={avatarList[index].avatar}
-                            alt=""
-                            className="h-10 w-10 rounded-full"
-                          />
-                        </td>
-                      </div>
-                      <div className="flex flex-col pr-6">
-                        <td>{patient_name}</td>
-                        <td>{mobile_number}</td>
-                      </div>
-                    </div>
-                    {/* </tr> */}
-                    {/* <tr className="flex items-start gap-32 "> */}
-                    <div className="flex flex-row gap-1 items-center justify-start">
-                      <span>
-                        <TbCalendarEvent />
-                      </span>
-                      <td className="">{appointment_date}</td>
-                    </div>
-                    <div className="flex flex-row items-center justify-start pr-8">
-                      <BsClockHistory />
-
-                      <td>{appointment_time}</td>
-                    </div>
-                    {/* <a
-                  href="https://www.flaticon.com/free-icons/star"
-                  title="star icons"
-                ></a> */}
-                    <div className="flex flex-row items-center justify-center">
-                      <MdStars style={{ color: "blue" }} />
-                      <td> {doctor}</td>
-                    </div>
-                    <div className="pr-10">
-                      <td className=" rounded-xl p-2 text-slate-500 font-bold bg-slate-200">
-                        {injury}
+                ) => {
+                  const showOrangeStar =
+                    doctor === "Dr. Patel" || doctor === "Dr. Garcia";
+                  return (
+                    <tr
+                      key={index}
+                      className="flex flex-row items-center justify-start text-left border-b 	"
+                    >
+                      <td className="flex flex-row p-2  w-[200px] basis-3/12">
+                        <div className="flex items-center gap-3">
+                          <div className="flex">
+                            <img
+                              src={avatarList[index].avatar}
+                              alt=""
+                              className="h-10 w-10 rounded-full"
+                            />
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            <div className="font-bold">{patient_name}</div>
+                            <div className="text-zinc-500">{mobile_number}</div>
+                          </div>
+                        </div>
                       </td>
-                    </div>
-                    {/* <td></td> */}
-                    {/* </tr> */}
-                    <td>
-                      <BsThreeDotsVertical />
-                    </td>
-                  </tr>
-                )
+                      <td className="basis-2/12 p-2 min-w-[100px]">
+                        <div className="flex flex-row gap-1 items-center">
+                          <span>
+                            <TbCalendarEvent className="text-zinc-500" />
+                          </span>
+                          <div className="text-zinc-500">
+                            {appointment_date}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="basis-2/12 p-2 min-w-[140px]">
+                        <div className="flex flex-row items-center gap-2">
+                          <BsClockHistory className="text-zinc-500" />
+
+                          <div className="text-zinc-500">
+                            {appointment_time}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="basis-2/12 p-2 min-w-[100px]">
+                        <div className="flex flex-row items-center gap-2">
+                          <MdStars
+                            style={{
+                              color: showOrangeStar
+                                ? "orange"
+                                : "mediumSeaGreen",
+                              fontSize: "30px",
+                            }}
+                          />
+                          <div className="text-zinc-500"> {doctor}</div>
+                        </div>
+                      </td>
+                      <td className="basis-2/12 p-2 min-w-[100px]">
+                        <div className=" rounded-xl py-1 px-3 text-slate-500 font-bold bg-slate-200 inline-block">
+                          {injury}
+                        </div>
+                      </td>
+                      <td className="basis-0.5/6 p-2 min-w-[100px]">
+                        <BsThreeDotsVertical className="text-zinc-500" />
+                      </td>
+                    </tr>
+                  );
+                }
               )}
               {/* </div> */}
             </tbody>
